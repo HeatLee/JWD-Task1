@@ -1,9 +1,15 @@
 package com.markevich.task1.entity;
 
-import java.util.Objects;
+import java.math.BigDecimal;
 
 public class QAEngineer extends Programmer {
     private QATools mainTestingTool;
+
+    public QAEngineer(String firstName, String lastName, PositionType position, QATools mainTestingTool,
+                       double workHours, BigDecimal salary){
+        super(firstName, lastName, salary, position, workHours);
+        this.mainTestingTool = mainTestingTool;
+    }
 
     public QATools getMainTestingTool() {
         return mainTestingTool;
@@ -30,11 +36,11 @@ public class QAEngineer extends Programmer {
     @Override
     public String toString() {
         return "QAEngineer{" +
-                "mainTestingTool=" + mainTestingTool +
-                ", position=" + position +
-                ", workedHours=" + workedHours +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", position=" + position +
+                ", mainTestingTool=" + mainTestingTool +
+                ", workedHours=" + workedHours +
                 ", salary=" + salary +
                 '}';
     }

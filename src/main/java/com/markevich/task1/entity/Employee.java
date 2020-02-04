@@ -1,7 +1,6 @@
 package com.markevich.task1.entity;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class Employee {
     protected static final int HASH_PRIME = 31;
@@ -10,7 +9,13 @@ public class Employee {
     protected String lastName;
     protected BigDecimal salary;
 
-    protected Employee(){}
+    protected Employee(String firstName, String lastName, BigDecimal salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = BigDecimal.valueOf(salary.doubleValue());
+    }
+
+    protected Employee() {}
 
     public String getFirstName() {
         return firstName;
@@ -41,9 +46,9 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(lastName, employee.lastName) &&
-                Objects.equals(salary, employee.salary);
+        return firstName.equals(employee.firstName) &&
+                lastName.equals(employee.lastName) &&
+                salary.equals(employee.salary);
     }
 
     @Override

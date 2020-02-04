@@ -1,8 +1,19 @@
 package com.markevich.task1.entity;
 
+import java.math.BigDecimal;
+
 public class Programmer extends Employee{
     protected PositionType position;
     protected double workedHours;
+
+    protected Programmer(){}
+
+    protected Programmer(String firstName, String lastName, BigDecimal salary, PositionType position,
+                         double workedHours) {
+        super(firstName, lastName, salary);
+        this.position = position;
+        this.workedHours = workedHours;
+    }
 
     public PositionType getPosition() {
         return position;
@@ -36,16 +47,5 @@ public class Programmer extends Employee{
         hash = HASH_PRIME * hash + position.hashCode();
         hash = HASH_PRIME * hash + Double.valueOf(workedHours).hashCode();
         return hash;
-    }
-
-    @Override
-    public String toString() {
-        return "Programmer{" +
-                "position=" + position +
-                ", workedHours=" + workedHours +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", salary=" + salary +
-                '}';
     }
 }
