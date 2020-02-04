@@ -2,7 +2,7 @@ package com.markevich.task1.entity;
 
 import java.math.BigDecimal;
 
-public class QAEngineer extends Programmer {
+public class QAEngineer extends Employee {
     private QATools mainTestingTool;
 
     public QAEngineer(String firstName, String lastName, PositionType position, QATools mainTestingTool,

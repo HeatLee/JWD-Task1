@@ -2,7 +2,7 @@ package com.markevich.task1.entity;
 
 import java.math.BigDecimal;
 
-public class Developer extends Programmer {
+public class Developer extends Employee {
 
     private ProgrammingLanguage mainLanguage;
 

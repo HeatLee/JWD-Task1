@@ -4,18 +4,30 @@ import java.math.BigDecimal;
 
 public class Employee {
     protected static final int HASH_PRIME = 31;
+    protected static int amount;
 
+    protected int id;
     protected String firstName;
     protected String lastName;
     protected BigDecimal salary;
+    protected PositionType position;
+    protected double workedHours;
 
-    protected Employee(String firstName, String lastName, BigDecimal salary) {
+    protected Employee(String firstName, String lastName, BigDecimal salary, PositionType position,
+                       double workedHours) {
+        id = ++amount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.salary = BigDecimal.valueOf(salary.doubleValue());
+        this.position = position;
+        this.workedHours = workedHours;
     }
 
     protected Employee() {}
+
+    public int getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,6 +52,21 @@ public class Employee {
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
+    public PositionType getPosition() {
+        return position;
+    }
+
+    public void setPosition(PositionType position) {
+        this.position = position;
+    }
+
+    public double getWorkedHours() {
+        return workedHours;
+    }
+
+    public void setWorkedHours(double workedHours) {
+        this.workedHours = workedHours;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,7 +75,9 @@ public class Employee {
         Employee employee = (Employee) o;
         return firstName.equals(employee.firstName) &&
                 lastName.equals(employee.lastName) &&
-                salary.equals(employee.salary);
+                salary.equals(employee.salary) &&
+                Double.compare(workedHours, employee.workedHours) == 0.0000000001 &&
+                position.equals(employee.position);
     }
 
     @Override
@@ -57,15 +86,8 @@ public class Employee {
         hash = HASH_PRIME * hash + firstName.hashCode();
         hash = HASH_PRIME * hash + lastName.hashCode();
         hash = HASH_PRIME * hash + salary.hashCode();
+        hash = HASH_PRIME * hash + position.hashCode();
+        hash = HASH_PRIME * hash + Double.valueOf(workedHours).hashCode();
         return hash;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", salary=" + salary +
-                '}';
     }
 }
