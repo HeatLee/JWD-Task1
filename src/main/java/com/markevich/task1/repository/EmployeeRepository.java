@@ -11,5 +11,9 @@ public interface EmployeeRepository {
 
     void addAllEmployees(List<Employee> employees);
 
+    void delete(Employee employee);
+
+    void update(Employee oldEmployee, Employee newEmployee);
+
     List<Employee> matches(EmployeeSpecification specification);
 }
