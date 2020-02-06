@@ -1,8 +1,8 @@
-package com.markevich.task1.repository.specification.impl;
+package com.markevich.task1.specification.impl.employee;
 
 import com.markevich.task1.entity.Employee;
 import com.markevich.task1.entity.PositionType;
-import com.markevich.task1.repository.specification.EmployeeSpecification;
+import com.markevich.task1.specification.EmployeeSpecification;
 
 public class EmployeeSpecificationByPosition implements EmployeeSpecification {
     private PositionType specifiedPosition;
