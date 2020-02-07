@@ -1,11 +1,10 @@
-package com.markevich.task1.dal.impl;
+package com.markevich.task1.dal;
 
-import com.markevich.task1.dal.DataReader;
-import com.markevich.task1.dal.util.Converter;
 import com.markevich.task1.entity.Employee;
 import com.markevich.task1.exception.DataAccessException;
 import com.markevich.task1.factory.FactoryImpl;
-import com.sun.org.apache.bcel.internal.generic.FADD;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,6 +18,7 @@ public class TextFileDataReader implements DataReader {
     private static final String QA_ENGINEER_EMPLOYEE = "QAEngineer";
     private static final int EMPLOYEE_TYPE_INFO = 0;
     private static final String REGEX = "\\|";
+    private static final Logger LOGGER = Logger.getLogger(TextFileDataReader.class);
 
     private String filePath;
 
@@ -33,7 +33,7 @@ public class TextFileDataReader implements DataReader {
             File file = checkFile();
             list = readAll(file);
         } catch (DataAccessException e) {
-            //todo log
+            LOGGER.log(Level.WARN, e);
         }
         return list;
     }
@@ -41,8 +41,8 @@ public class TextFileDataReader implements DataReader {
     private File checkFile() throws DataAccessException {
         File file = new File(filePath);
         if (!file.exists()) {
+            LOGGER.log(Level.TRACE, "Data source do not exist");
             throw new DataAccessException("Data source do not exist in given directory.");
-            //todo log
         }
         return file;
     }
@@ -69,8 +69,8 @@ public class TextFileDataReader implements DataReader {
                 }
             }
         } catch (IOException e) {
+            LOGGER.log(Level.WARN, e);
             throw new DataAccessException("Data source problems", e);
-            //todo log
         }
         return list;
     }
