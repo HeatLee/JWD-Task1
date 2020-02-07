@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 
 public class Employee {
     protected static final int HASH_PRIME = 31;
-    protected static int amount;
 
-    protected int id;
     protected String firstName;
     protected String lastName;
     protected BigDecimal salary;
@@ -15,7 +13,6 @@ public class Employee {
 
     protected Employee(String firstName, String lastName, BigDecimal salary, PositionType position,
                        double workedHours) {
-        id = ++amount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.salary = BigDecimal.valueOf(salary.doubleValue());
@@ -24,10 +21,6 @@ public class Employee {
     }
 
     protected Employee() {}
-
-    public int getId() {
-        return id;
-    }
 
     public String getFirstName() {
         return firstName;

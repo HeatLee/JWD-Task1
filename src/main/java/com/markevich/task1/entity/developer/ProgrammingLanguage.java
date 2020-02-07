@@ -1,6 +1,8 @@
-package com.markevich.task1.entity;
+package com.markevich.task1.entity.developer;
 
-public enum ProgrammingLanguage{
+import com.markevich.task1.entity.MainSkill;
+
+public enum ProgrammingLanguage implements MainSkill {
     JAVA("Java"), SQL("SQL"), PYTHON("Python"), GOLANG("GOLang"),
     SCALA("Scala"), C("C"), C_SHARP("C#"), C_PLUS_PLUS("C++"),
     RUBY("Ruby"), JAVASCRIPT("JavaScript");

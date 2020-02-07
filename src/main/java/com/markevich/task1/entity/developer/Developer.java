@@ -1,4 +1,7 @@
-package com.markevich.task1.entity;
+package com.markevich.task1.entity.developer;
+
+import com.markevich.task1.entity.Employee;
+import com.markevich.task1.entity.PositionType;
 
 import java.math.BigDecimal;
 

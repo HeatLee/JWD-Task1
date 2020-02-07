@@ -1,4 +1,7 @@
-package com.markevich.task1.entity;
+package com.markevich.task1.entity.qa;
+
+import com.markevich.task1.entity.Employee;
+import com.markevich.task1.entity.PositionType;
 
 import java.math.BigDecimal;
 
@@ -6,7 +9,7 @@ public class QAEngineer extends Employee {
     private QATools mainTestingTool;
 
     public QAEngineer(String firstName, String lastName, PositionType position, QATools mainTestingTool,
-                       double workHours, BigDecimal salary){
+                      double workHours, BigDecimal salary){
         super(firstName, lastName, salary, position, workHours);
         this.mainTestingTool = mainTestingTool;
     }
