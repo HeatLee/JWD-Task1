@@ -3,10 +3,10 @@ package com.markevich.task1.specification.impl.employee;
 import com.markevich.task1.entity.Employee;
 import com.markevich.task1.specification.EmployeeSpecification;
 
-public class EmployeeSpecificationByWorkedHours implements EmployeeSpecification {
+public class EmployeeSpecificationBySpecificWorkedHoursValue implements EmployeeSpecification {
     private double specifiedWorkedHours;
 
-    public EmployeeSpecificationByWorkedHours(double specifiedWorkedHours) {
+    public EmployeeSpecificationBySpecificWorkedHoursValue(double specifiedWorkedHours) {
         this.specifiedWorkedHours = specifiedWorkedHours;
     }
 

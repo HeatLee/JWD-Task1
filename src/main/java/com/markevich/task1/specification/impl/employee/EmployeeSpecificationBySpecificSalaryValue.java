@@ -5,10 +5,10 @@ import com.markevich.task1.specification.EmployeeSpecification;
 
 import java.math.BigDecimal;
 
-public class EmployeeSpecificationBySalary implements EmployeeSpecification {
+public class EmployeeSpecificationBySpecificSalaryValue implements EmployeeSpecification {
     private BigDecimal specifiedSalary;
 
-    public EmployeeSpecificationBySalary(BigDecimal specifiedSalary) {
+    public EmployeeSpecificationBySpecificSalaryValue(BigDecimal specifiedSalary) {
         this.specifiedSalary = BigDecimal.valueOf(specifiedSalary.doubleValue());
     }
 
