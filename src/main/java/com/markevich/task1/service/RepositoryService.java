@@ -3,9 +3,9 @@ package com.markevich.task1.service;
 import com.markevich.task1.entity.Employee;
 import com.markevich.task1.entity.developer.Developer;
 import com.markevich.task1.entity.qa.QAEngineer;
+import com.markevich.task1.exception.RepositoryException;
 import com.markevich.task1.exception.ServiceException;
 import com.markevich.task1.repository.EmployeeRepository;
-import com.markevich.task1.repository.EmployeeRepositoryImpl;
 import com.markevich.task1.specification.impl.employee.EmployeeSpecificationByAll;
 import com.markevich.task1.validator.DeveloperValidator;
 import com.markevich.task1.validator.QAEngineerValidator;
@@ -28,32 +28,56 @@ public class RepositoryService {
         return false;
     }
 
-    public void addAllEmployees(Collection<Employee> employees) {
-        if (employees != null) {
+    public void addAllEmployees(Collection<Employee> employees) throws ServiceException{
+        if (employees == null) {
+            throw new ServiceException("Incoming collection of data does not exist");
+        }
+        try {
             LOGGER.log(Level.TRACE, "Start adding");
             for (Employee employee : employees) {
                 LOGGER.log(Level.TRACE, "Checking employee");
                 if (checkEntity(employee)) {
                     LOGGER.log(Level.TRACE, "Add new employee");
-                    EmployeeRepositoryImpl.getInstance().addEmployee(employee);
+                    EmployeeRepository.getInstance().addEmployee(employee);
                 } else {
                     LOGGER.log(Level.WARN, "Invalid parameters");
                 }
             }
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
         }
     }
 
-    public void delete(Employee employee) {
-        LOGGER.log(Level.TRACE, "Check employee");
-        if (checkEntity(employee)) {
-            LOGGER.log(Level.TRACE, "Deleting");
-            EmployeeRepositoryImpl.getInstance().delete(employee);
-        } else {
-            LOGGER.log(Level.WARN, "Invalid parameters");
+    public void addEmployee(Employee employee) throws ServiceException {
+        if (!checkEntity(employee)) {
+            LOGGER.log(Level.WARN, "Invalid parameters while adding");
+            throw new ServiceException("Invalid parameters in employee");
+        }
+        try {
+            EmployeeRepository.getInstance().addEmployee(employee);
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
         }
     }
 
-    public void update(Employee oldEmployee, Employee newEmployee) {
+    public void delete(Employee employee) throws ServiceException{
+        try {
+            LOGGER.log(Level.TRACE, "Check employee");
+            if (checkEntity(employee)) {
+                LOGGER.log(Level.TRACE, "Deleting");
+                EmployeeRepository.getInstance().delete(employee);
+            } else {
+                LOGGER.log(Level.WARN, "Invalid parameters");
+            }
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
+        }
+    }
+
+    public void update(Employee oldEmployee, Employee newEmployee) throws ServiceException{
         if (!checkEntity(oldEmployee)) {
             LOGGER.log(Level.WARN, "Wrong old employee parameters");
             return;
@@ -62,17 +86,27 @@ public class RepositoryService {
             LOGGER.log(Level.WARN, "Wrong new employee parameters");
             return;
         }
-        EmployeeRepositoryImpl.getInstance().update(oldEmployee, newEmployee);
+        try {
+            EmployeeRepository.getInstance().update(oldEmployee, newEmployee);
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
+        }
     }
 
-    public double calculateAllWorkedHours(EmployeeRepository repository) {
-        List<Employee> employeeList = repository.matches(new EmployeeSpecificationByAll());
-        double result = 0;
-        for (Employee employee :
-                employeeList) {
-            result += employee.getWorkedHours();
+    public double calculateAllWorkedHours() throws ServiceException {
+        try {
+            List<Employee> employeeList = EmployeeRepository.getInstance().matches(new EmployeeSpecificationByAll());
+            double result = 0;
+            for (Employee employee :
+                    employeeList) {
+                result += employee.getWorkedHours();
+            }
+            return result;
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
         }
-        return result;
     }
 
     public List<Employee> sort(Comparator<Employee> comparator) throws ServiceException{
@@ -80,11 +114,16 @@ public class RepositoryService {
             LOGGER.log(Level.WARN, "Null comparator");
             throw new ServiceException("Invalid  parameter");
         }
-        List<Employee> employeeList = EmployeeRepositoryImpl.getInstance().matches(new EmployeeSpecificationByAll());
-        LOGGER.log(Level.TRACE, "Start sorting");
-        quickSort(employeeList, comparator, 0, employeeList.size());
-        LOGGER.log(Level.TRACE, "Sorting ends");
-        return employeeList;
+        try {
+            List<Employee> employeeList = EmployeeRepository.getInstance().matches(new EmployeeSpecificationByAll());
+            LOGGER.log(Level.TRACE, "Start sorting");
+            quickSort(employeeList, comparator, 0, employeeList.size()-1);
+            LOGGER.log(Level.TRACE, "Sorting ends");
+            return employeeList;
+        } catch (RepositoryException e) {
+            LOGGER.log(Level.WARN, e);
+            throw new ServiceException(e);
+        }
     }
 
     private void quickSort(List<Employee> array, Comparator<Employee> comparator, int low, int high) {
