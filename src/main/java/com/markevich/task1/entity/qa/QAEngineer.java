@@ -14,6 +14,15 @@ public class QAEngineer extends Employee {
         this.mainTestingTool = mainTestingTool;
     }
 
+    public QAEngineer(QAEngineer qaEngineer) {
+        this.firstName = qaEngineer.firstName;
+        this.lastName = qaEngineer.lastName;
+        this.position = qaEngineer.position;
+        this.salary = qaEngineer.salary;
+        this.workedHours = qaEngineer.workedHours;
+        this.mainTestingTool = qaEngineer.mainTestingTool;
+    }
+
     public QATools getMainTestingTool() {
         return mainTestingTool;
     }

@@ -15,6 +15,15 @@ public class Developer extends Employee {
         this.mainLanguage = mainLanguage;
     }
 
+    public Developer(Developer developer) {
+        this.firstName = developer.firstName;
+        this.lastName = developer.lastName;
+        this.position = developer.position;
+        this.salary = developer.salary;
+        this.workedHours = developer.workedHours;
+        this.mainLanguage = developer.mainLanguage;
+    }
+
     public ProgrammingLanguage getMainLanguage() {
         return mainLanguage;
     }
